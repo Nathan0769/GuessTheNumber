@@ -1,4 +1,4 @@
-# 🎮 Devine le Nombre
+# 🎮 Guess The Number
 
 Une application simple et amusante où vous devez deviner un nombre aléatoire entre 0 et 100.
 
