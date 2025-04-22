@@ -1,56 +1,85 @@
 import { prompt } from "./prompt.js";
 
 let numberTry = 1;
-
-const targetNumber = () => {
-  const targetNumber = Math.floor(Math.random() * 101);
-  return targetNumber;
-};
-
-const randomNumber = targetNumber();
+const min = 0;
+const max = 101;
 
 function start() {
-  console.log(`Welcome to the Number Guessing Game! 🎮
+  numberTry = 1;
 
-Rules:
-1. The system will generate a random number between 0 and 100.
-2. Your task is to guess this number.
-3. Enter a number when prompted.
-4. If your guess is too high or too low, you'll be notified, and you can guess again.
-5. The game continues until you guess the correct number.
+  const targetNumber = (min, max) => {
+    const targetNumber = Math.floor(Math.random() * (max - min) + min);
+    return targetNumber;
+  };
 
-Let's get started! 🚀
+  const randomNumber = targetNumber(min, max);
+
+  console.log(`
+    Bienvenue dans le jeu Devine le Nombre ! 🎮
+
+Règles :
+1. Le système va générer un nombre aléatoire entre 0 et 100.
+2. Votre objectif est de deviner ce nombre.
+3. Entrez un nombre quand on vous le demande.
+4. Si votre nombre est trop grand ou trop petit, vous serez notifié et pourrez réessayer.
+5. Le jeu continue jusqu'à ce que vous trouviez le bon nombre.
+
+C'est parti ! 🚀
 `);
+
+  function newGame() {
+    const newGame = prompt("Voulez-vous rejouer ? (O/N) : ");
+    if (newGame === "N") {
+      return false;
+    }
+    return true;
+  }
+
+  function guessNumber() {
+    const numberUser = prompt("entrer un nombre entre 0 et 100 : ");
+
+    if (numberUser < 0 || numberUser > 100 || isNaN(numberUser)) {
+      console.error(`
+      Erreur ! Il faut un nombre entre 0 et 100. Recommencez !
+      `);
+      return guessNumber();
+    }
+
+    if (numberUser > randomNumber) {
+      console.log(`
+      📈 Le nombre entré est ** trop grand **.
+      `);
+      numberTry++;
+      return guessNumber();
+    }
+
+    if (numberUser < randomNumber) {
+      console.log(`
+      📉 Le nombre entré est ** trop petit **.
+      `);
+      numberTry++;
+      return guessNumber();
+    }
+
+    console.log(
+      "Bravo ! Le nombre aléatoire était bien " +
+        randomNumber +
+        " ✨. Vous avez réussi en : " +
+        numberTry +
+        " tentatives"
+    );
+
+    const choiseUser = newGame();
+
+    if (choiseUser !== false) {
+      return guessNumber();
+    } else {
+      return false;
+    }
+  }
+
+  guessNumber();
 }
 
-function guessNumber() {
-  const numberUser = prompt("entrer un nombre entre 0 et 100 : ");
-
-  if (numberUser < 0 || numberUser > 100) {
-    console.error("Erreur ! Il faut un nombre entre 0 et 100. Recommencez !");
-    return guessNumber();
-  }
-
-  if (numberUser > randomNumber) {
-    console.log("📈 The entered number is **too big**.");
-    numberTry++;
-    return guessNumber();
-  }
-
-  if (numberUser < randomNumber) {
-    console.log("📉 The entered number is **too small**.");
-    numberTry++;
-    return guessNumber();
-  }
-
-  console.log(
-    "Bravo ! Le nombre aléatoire était bien " +
-      randomNumber +
-      " ✨. Vous avez réussi en : " +
-      numberTry +
-      " tentatives"
-  );
-}
-
+// On lance le jeu
 start();
-guessNumber();
