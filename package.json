@@ -1,0 +1,23 @@
+{
+  "name": "projet-guess-the-number",
+  "version": "1.0.0",
+  "description": "GuessTheNumber",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nathan0769/GuessTheNumber.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nathan0769/GuessTheNumber/issues"
+  },
+  "homepage": "https://github.com/Nathan0769/GuessTheNumber#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
