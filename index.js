@@ -1,10 +1,10 @@
 import { prompt } from "./prompt.js";
 
 let numberTry = 1;
-const min = 0;
-const max = 101;
 
 function start() {
+  const min = 0;
+  const max = 101;
   numberTry = 1;
 
   const targetNumber = (min, max) => {
@@ -28,15 +28,23 @@ C'est parti ! 🚀
 `);
 
   function newGame() {
-    const newGame = prompt("Voulez-vous rejouer ? (O/N) : ");
-    if (newGame === "N") {
+    const userChoice = prompt("Voulez-vous rejouer ? (O/N) : ");
+    if (userChoice.toUpperCase() === "N") {
+      console.log("Au revoir ! 👋");
       return false;
+    } else if (
+      userChoice.toUpperCase() === "O" ||
+      userChoice.toUpperCase() === "Y"
+    ) {
+      return true;
+    } else {
+      console.log("Entrez O ou N pour relancer ou arrêter la partie.");
+      return newGame();
     }
-    return true;
   }
 
   function guessNumber() {
-    const numberUser = prompt("entrer un nombre entre 0 et 100 : ");
+    const numberUser = Number(prompt("Entrez un nombre entre 0 et 100 : "));
 
     if (numberUser < 0 || numberUser > 100 || isNaN(numberUser)) {
       console.error(`
